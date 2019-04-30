@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/mainBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
+>
+<LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/bakery" android:id="@+id/imageView"
+            android:scaleType="fitXY" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+    />
+    <TextView
+            android:text="This app is the Spring 2019 final project for RIT's ISTE-456 Mobile Application Development II by Lizzie and Brie. This app is a simple recipe app for baked goods. Some features include; searching recipes, favoriting recipes, and using a timer for tracking cook time. The application uses icons from icons8.com and all images/recipes from allrecipes.com"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6"
+            android:padding="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:textSize="18sp"
+            android:layout_marginBottom="10dp"/>
+    <TextView
+            android:text="@string/title_recipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="5dp" android:textSize="24sp" android:background="#b91433"
+            android:textColor="@android:color/white" android:fontFamily="casual" android:textStyle="bold"
+            android:id="@+id/textView4" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView2"
+            android:layout_marginBottom="16dp" app:layout_constraintBottom_toTopOf="@+id/imgWheel"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:gravity="center">
+        <Button
+                android:layout_width="61dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgLeftBtn" android:background="@drawable/left_50"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/imgWheel"
+                app:layout_constraintBottom_toBottomOf="@+id/imgWheel"
+                app:layout_constraintTop_toTopOf="@+id/imgWheel" android:layout_marginEnd="8dp"/>
+        <ImageView
+                android:layout_width="250dp"
+                android:layout_height="200dp" tools:srcCompat="@drawable/placeholder"
+                android:id="@+id/imgWheel" android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toStartOf="@+id/imgRightBtn"
+                app:layout_constraintStart_toEndOf="@+id/imgLeftBtn"
+                app:layout_constraintBottom_toTopOf="@+id/textView5"
+                android:layout_marginBottom="10dp"/>
+        <Button
+                android:layout_width="61dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgRightBtn" android:background="@drawable/right_50"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/imgWheel"
+                android:layout_marginStart="8dp"
+                app:layout_constraintTop_toTopOf="@+id/imgWheel"
+                app:layout_constraintBottom_toBottomOf="@+id/imgWheel"/>
+    </LinearLayout>
+    <TextView
+            android:text="About"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:padding="5dp" android:textSize="24sp" android:background="#b91433"
+            android:textColor="@android:color/white" android:fontFamily="casual" android:textStyle="bold"
+            android:id="@+id/textView5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgWheel" android:layout_marginBottom="17dp"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"/>
+    <TextView
+            android:text="To get started, go ahead and scroll through all the availble recipes on the &quot;Recipes&quot; tab. If you have a specific recipe in mind, head to the &quot;Search&quot; tab below to search the various recipes on the app. Once you've found a recipe you like go ahead and favorite so you can find it later on the &quot;Favorites&quot; page. When you're ready to cook, the timer feature can be used from the recipe page!"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:padding="20dp"
+            app:layout_constraintHorizontal_bias="0.0" android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" android:layout_marginBottom="50dp"
+            android:textSize="18sp"/>
+</LinearLayout>
+</ScrollView>

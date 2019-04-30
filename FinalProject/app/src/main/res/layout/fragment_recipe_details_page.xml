@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context=".RecipeDetailsPage">
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="38dp" android:id="@+id/view" android:background="@color/colorPrimaryDark"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <Button
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:id="@+id/backBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            android:background="@drawable/back_arrow"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+    />
+    <TextView
+            android:text="Recipes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView"
+            android:textSize="24sp" android:textStyle="bold"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="@+id/backBtn" app:layout_constraintBottom_toBottomOf="@+id/backBtn"
+            app:layout_constraintVertical_bias="0.388" app:layout_constraintStart_toEndOf="@+id/backBtn"
+            android:layout_marginStart="8dp"/>
+    <ScrollView android:layout_width="0dp" android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/backBtn" app:layout_constraintBottom_toBottomOf="parent"
+    >
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" android:id="@+id/detail_image"/>
+            <TextView
+                    android:text="DETAILS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" tools:layout_editor_absoluteY="396dp"
+                    tools:layout_editor_absoluteX="149dp" android:textSize="24sp"
+                    android:background="@color/colorPrimary" android:textColor="@android:color/white"
+                    android:textStyle="bold" android:paddingLeft="15dp"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="190dp"
+                    android:id="@+id/detailsFrame"
+                    android:orientation="vertical"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:text="INGREDIENTS" android:textSize="24sp"
+                    android:paddingLeft="15dp" android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white" android:textStyle="bold"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/ingredientsFrame"
+                    android:orientation="vertical" tools:layout_editor_absoluteY="320dp"
+                    tools:layout_editor_absoluteX="8dp" android:clickable="false"
+                    android:layout_height="wrap_content">
+            </LinearLayout>
+            <TextView
+                    android:text="INSTRUCTIONS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" tools:layout_editor_absoluteY="396dp"
+                    tools:layout_editor_absoluteX="149dp" android:textSize="24sp"
+                    android:background="@color/colorPrimary" android:textColor="@android:color/white"
+                    android:textStyle="bold" android:paddingLeft="15dp"/>
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/instructionsFrame">
+            </LinearLayout>
+            <Button
+                    android:text="Add to Favorites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/favoritesAddBtn"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp" android:background="@color/colorPrimaryDark"
+                    android:textColor="@android:color/white" android:textStyle="bold" android:textSize="18sp"
+            />
+            <Button
+                    android:text="Go to Timer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/timerBtn"
+                    android:background="@color/colorPrimaryDark" android:textColor="@android:color/white"
+                    android:textStyle="bold" android:textSize="18sp" android:layout_marginBottom="15dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
