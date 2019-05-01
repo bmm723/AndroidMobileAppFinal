@@ -14,7 +14,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_recipe_details_page.*
 import kotlinx.android.synthetic.main.fragment_recipe_details_page.view.*
 
-class RecipeDetailsPage : Fragment() {
+class FavoritesDetailsPage : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -23,7 +23,7 @@ class RecipeDetailsPage : Fragment() {
         val view: View = inflater!!.inflate(R.layout.fragment_recipe_details_page, container, false)
 
         view.backBtn.setOnClickListener { view ->
-            (activity as MainActivity).loadFragment("List")
+            (activity as MainActivity).loadFragment("Favorites")
         }
         var currentTitle = (activity as MainActivity).currentTitle
         if((activity as MainActivity).sp?.getInt(currentTitle, -1) != -1) {
@@ -43,7 +43,7 @@ class RecipeDetailsPage : Fragment() {
 
         var frameHeightInstruct: LinearLayout? = view.instructionsFrame //findViewById(R.id.ingredientsFrame)
         val _heightInstruct = ((activity as MainActivity).getInstructionLength()  * 170) + (chars*11)
-                frameHeightInstruct?.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, _heightInstruct)
+        frameHeightInstruct?.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, _heightInstruct)
 
         view.timerBtn.setOnClickListener { view -> (activity as MainActivity).loadFragment("Timer")}
         view.favoritesAddBtn.setOnClickListener{favoriteButtonClick()}

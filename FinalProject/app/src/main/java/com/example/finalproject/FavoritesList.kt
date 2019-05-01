@@ -15,9 +15,10 @@ import androidx.fragment.app.ListFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recipe_cards.*
 
-class RecipeCards : ListFragment() {
+class FavoritesList : ListFragment() {
 
     var itemChangedListener: ItemChangedListener? = null
+    var location: Int? = null
 
     //interface for the listenerfor changes to selected item
     interface ItemChangedListener{
@@ -29,10 +30,12 @@ class RecipeCards : ListFragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        var all = (activity as MainActivity).sp?.all
+        val keyList = ArrayList(all?.keys)
         super.onActivityCreated(savedInstanceState)
         listAdapter = ItemsArrayAdapter (this.context!!,
             R.layout.fragment_recipe_cards,
-            (activity as MainActivity).myTitlesList)
+            keyList)
 
         //allow one item to be selected at a time
         listView.choiceMode = ListView.CHOICE_MODE_SINGLE
@@ -57,7 +60,6 @@ class RecipeCards : ListFragment() {
         }
 
         //get ListView item for the given position
-
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
             var holder: ViewHolder //hold reference to the current item's GUI
@@ -91,12 +93,14 @@ class RecipeCards : ListFragment() {
             val ratingTextView = holder.ratingTextView
             val dessertImageView = holder.dessertImageView
 
-            titleTextView?.text = (activity as MainActivity).myTitlesList[position]
-            timeTextView?.text = (activity as MainActivity).myTimeList[position]
-            (activity as MainActivity).currentTitle = (activity as MainActivity).myTitlesList[position]
-            ratingTextView?.findViewById<TextView>(R.id.recipe_rating)?.text = ("Rating: ${(activity as MainActivity).myRatingsList[position]}")
+            location = (activity as MainActivity).sp!!.getInt((activity as MainActivity).savedRecipes[0+position], -1)
+
+            titleTextView?.text = (activity as MainActivity).myTitlesList[location!!]
+            (activity as MainActivity).currentTitle = (activity as MainActivity).myTitlesList[location!!]
+            timeTextView?.text = (activity as MainActivity).myTimeList[location!!]
+            ratingTextView?.findViewById<TextView>(R.id.recipe_rating)?.text = ("Rating: ${(activity as MainActivity).myRatingsList[location!!]}")
             if (dessertImageView != null){
-                Picasso.get().load((activity as MainActivity).myImgList[position])
+                Picasso.get().load((activity as MainActivity).myImgList[location!!])
                     .placeholder(R.drawable.placeholder)
                     .into(dessertImageView)
             }
@@ -119,9 +123,9 @@ class RecipeCards : ListFragment() {
     }
 
     private val itemsOnItemClickListener: AdapterView.OnItemClickListener =
-        AdapterView.OnItemClickListener{ adapterView, view, position, id ->
+        AdapterView.OnItemClickListener{
 
-            itemChangedListener?.onSelectedItemChanged(position)
+                adapterView, view, location, id -> itemChangedListener?.onSelectedItemChanged(location)
         }
 
 

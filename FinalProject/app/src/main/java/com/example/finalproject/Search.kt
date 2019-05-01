@@ -19,7 +19,7 @@ import java.lang.StringBuilder
 
 class Search : Fragment() {
     private var list: ArrayList<String>? = null
-    public var results: ArrayList<String>? = null
+    public var results: ArrayList<Int>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -39,15 +39,16 @@ class Search : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 results?.clear()
+                var j = 0
                 for(i in list!!) {
                     var word = searchInput.text.toString()
                     val findRes = Regex(word).find(i)
                     if(findRes?.value != null) {
-                        results?.add(i)
-                        //R.id.search_result.
+                        results?.add(j)
+                        (activity as MainActivity).addToList(results)
                     }
+                    j++
                 }
-                //(activity as MainActivity).addToList(results)
             }
         })
         // update RecipeCards

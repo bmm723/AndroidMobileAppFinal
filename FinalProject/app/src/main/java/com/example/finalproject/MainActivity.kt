@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
@@ -13,11 +15,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_recipe_details_page.*
 import org.json.JSONArray
 import org.json.JSONException
+import android.R.id.edit
+
+
 
 
 class MainActivity : AppCompatActivity() {
 
-    //public var sp: SharedPreferences? = null
+    public var spEdit: SharedPreferences.Editor? = null
+    var sp: SharedPreferences? = null
+    public var currentTitle: String? = null
+    public var recipeLoc: Int? = null
+    public var savedRecipes = ArrayList<String>()
+    public var contextOfApp: Context? = null
 
     public val myTitlesList = ArrayList<String>()
     public val myCookTimeList = ArrayList<Int>()
@@ -33,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     public var currentPosition: Int? = 0
 
     private var myListFragment: RecipeCards? = null
+    private var favoritesList: FavoritesList? = null
 
 
     fun loadJSONFromAsset(){
@@ -80,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_fav -> {
-                //message.setText(R.string.title_fav)
+                loadFragment("Favorites")
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_search -> {
@@ -122,6 +133,18 @@ class MainActivity : AppCompatActivity() {
         if(which == "Timer") {
             supportFragmentManager.beginTransaction().replace(R.id.the_info, Timer()).commit()
         }
+        if(which == "Favorites") {
+            favoritesList = FavoritesList()
+            favoritesList?.setMyItemChangedListener(favItemChangeListener)
+
+            supportFragmentManager.popBackStack(
+                null,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            ) //clear backstack
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.the_info, favoritesList!!)
+                .commit()
+        }
     }
 
 
@@ -133,6 +156,25 @@ class MainActivity : AppCompatActivity() {
                 currentPosition = itemNameInt
 
                 supportFragmentManager.beginTransaction().replace(R.id.the_info, RecipeDetailsPage())
+                    .commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.detailsFrame, DetailsList()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.ingredientsFrame, IngredientsList()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.detail_image, DetailImage()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.instructionsFrame, InstructionsList()).commit()
+            }
+
+        }
+    private var favItemChangeListener: FavoritesList.ItemChangedListener =
+        object : FavoritesList.ItemChangedListener {
+
+            override fun onSelectedItemChanged(itemNameInt: Int) {
+                currentPosition = itemNameInt
+
+                supportFragmentManager.beginTransaction().replace(R.id.the_info, FavoritesDetailsPage())
                     .commit()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.detailsFrame, DetailsList()).commit()
@@ -195,23 +237,26 @@ class MainActivity : AppCompatActivity() {
         }
         return counter
     }
-    fun addToList(results: ArrayList<String>?) {
-        val inflater = LayoutInflater.from(applicationContext)
-        val newTagView = inflater.inflate(R.layout.fragment_recipe_cards,null,false)
-        println("add run: " + results!![1])
+    fun addToList(results: ArrayList<Int>?) {
+        var len = results?.size
+        if (len != 0) {
+            println("add run: " + myTitlesList[results!!.get(0)])
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //sp = PreferenceManager.getDefaultSharedPreferences(0)
+        contextOfApp = getApplicationContext()
+        sp = getSharedPreferences("Favorites", Context.MODE_PRIVATE)
+        //spEdit = sp.edit()
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.the_info,HomePageFragment()).commit()
             loadJSONFromAsset()
         }
-
+        val editor = sp?.edit()?.clear()?.commit()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 }

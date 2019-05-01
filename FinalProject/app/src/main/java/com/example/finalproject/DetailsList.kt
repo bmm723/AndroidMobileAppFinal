@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.ListFragment
+import kotlinx.android.synthetic.main.fragment_recipe_details_page.*
 
 class DetailsList : ListFragment() {
 
@@ -28,11 +30,13 @@ class DetailsList : ListFragment() {
 
         currentPosition = (activity as MainActivity).currentPosition
         currentTitle = (activity as MainActivity).myTitlesList[currentPosition!!]
+        (activity as MainActivity).currentTitle = currentTitle
+        (activity as MainActivity).recipeLoc = currentPosition!!
+        println((activity as MainActivity).currentTitle)
         currentTime = (activity as MainActivity).myTimeList[currentPosition!!]
         currentLevel = (activity as MainActivity).myLevelList[currentPosition!!]
 
         itemsArrayList = arrayListOf(currentTitle.toString(), currentTime.toString(), currentLevel.toString())
-
 
         listAdapter = ItemsArrayAdapter (this.context!!,
             R.layout.fragment_details_list,
